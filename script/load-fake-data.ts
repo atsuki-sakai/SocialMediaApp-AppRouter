@@ -117,7 +117,7 @@ class DataLoader {
     }
 }
 
-async function main() {
+async function loadFakeData() {
     const generateCount = parseInt(process.argv[2]) || 10;
     const client = await getClient();
     const dataLoader = new DataLoader(client, generateCount);
@@ -139,4 +139,4 @@ async function main() {
     }
 }
 
-main();
+loadFakeData();
