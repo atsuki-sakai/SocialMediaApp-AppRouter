@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function Home() {
   return (
     <div className="flex min-h-screen justify-center items-center bg-white">
-      <div className="bg-slate-700 rounded-lg w-full max-w-sm py-12 px-5">
+      <div className="bg-slate-700 rounded-lg w-full max-w-sm py-12 px-5 mx-5">
         <h1 className="text-center mb-5 text-lg font-semibold">
           Social Media App
         </h1>
