@@ -19,15 +19,15 @@ async function loadFakeData(numUsers: number = 10) {
 
     try{
         await client.query('begin');
-
+        // users data
         for(let i = 0; i < numUsers; i ++){
-            console.log(`call index to ${i}`);
             await client.query("insert into public.users (username, password, avatar) values ($1, $2, $3)",
                 [faker.internet.userName(), "password", faker.internet.avatar()]
             );
-            console.log('pushed data');
         }
 
+
+        // posts data
         const res = await client.query(
             "select id from public.users order by created_at desc limit $1",
             [numUsers]
@@ -36,14 +36,26 @@ async function loadFakeData(numUsers: number = 10) {
         console.log('rows: ', res.rows);
 
         for(const row of res.rows) {
-            console.log("row: ", row);
-            for(let i = 0; i < Math.ceil(Math.random() * 10); i++) {
+            for(let i = 0; i < Math.ceil(Math.random() * 50); i++) {
                 await client.query(
                     "insert into public.posts (user_id, content) values ($1, $2)",
                     [row.id, faker.lorem.sentence()]
                 )
             }
         };
+
+        for (const row of res.rows) {
+            for (const row2 of res.rows) {
+                if(row.idi != row2.id) {
+                    if(Math.random() > 0.5) {
+                        await client.query(
+                            "insert into follows (user_id, follower_id) values ($1, $2)",
+                            [row.id, row2.id]
+                        )
+                    }
+                }
+            }
+        }
         
         await client.query('commit');
     }catch(error){
