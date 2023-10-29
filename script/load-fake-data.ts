@@ -1,8 +1,8 @@
 
 import { Client } from "pg";
-import { loadEnvConfig } from "@next/env";
 import { faker } from "@faker-js/faker";
 import bcrypt from "bcrypt";
+import { getClient } from "@/services/DB/client";
 
 class DataLoader {
 
@@ -11,18 +11,9 @@ class DataLoader {
     private generateCount: number;
 
     // - Constructor
-    constructor(gennerateCount: number = 10) {
-        this.generateCount = genenrateCount;
-        const projectDir = process.cwd();
-        loadEnvConfig(projectDir);
-
-        this.client = new Client({
-        user: process.env.POSTGRES_USER,
-        host: process.env.POSTGRES_HOST,
-        database: process.env.POSTGRES_NAME,
-        password: process.env.POSTGRES_PASSWORD,
-        port: parseInt(process.env.POSTGRES_PORT!),
-        });
+    constructor(client: Client, generateCount: number = 10) {
+        this.generateCount = generateCount;
+        this.client = client;
     }
 
     // - Functions
@@ -61,7 +52,7 @@ class DataLoader {
         try {
         await this.beginTransaction();
 
-        for (let i = 0; i < genenrateCount; i++) {
+        for (let i = 0; i < this.generateCount; i++) {
             await this.insertUser();
         }
 
@@ -78,11 +69,11 @@ class DataLoader {
 
         const res = await this.client.query(
             "select id from public.users order by created_at desc limit $1",
-            [genenrateCount]
+            [this.generateCount]
         );
 
         for (const row of res.rows) {
-            for (let i = 0; i < genenrateCount; i++) {
+            for (let i = 0; i < this.generateCount; i++) {
             await this.client.query(
                 "insert into public.posts (user_id, content) values ($1, $2)",
                 [row.id, faker.lorem.sentence()]
@@ -126,20 +117,26 @@ class DataLoader {
     }
 }
 
-const genenrateCount = parseInt(process.argv[2]) || 10;
-const dataLoader = new DataLoader(genenrateCount);
+async function main() {
+    const generateCount = parseInt(process.argv[2]) || 10;
+    const client = await getClient();
+    const dataLoader = new DataLoader(client, generateCount);
 
-dataLoader.dbConnect().then(async () => {
-    console.log('db connected.');
-    await dataLoader.loadUserData();
-    console.log('created users');
-    await dataLoader.loadPostsData();
-    console.log('created posts');
-    await dataLoader.loadFollowsData();
-    console.log('created follows');
-}).catch((error) => {
-    console.error("Error: ", error);
-}).finally(() => {
-    dataLoader.disconnect();
-    console.log('db disconnected');
-})
+    try {
+        await dataLoader.dbConnect();
+        console.log('db connected.');
+        await dataLoader.loadUserData();
+        console.log('created users');
+        await dataLoader.loadPostsData();
+        console.log('created posts');
+        await dataLoader.loadFollowsData();
+        console.log('created follows');
+    } catch (error) {
+        console.error("Error: ", error);
+    } finally {
+        dataLoader.disconnect();
+        console.log('db disconnected');
+    }
+}
+
+main();
