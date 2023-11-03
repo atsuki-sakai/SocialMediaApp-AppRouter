@@ -4,7 +4,7 @@ export default function PublilcLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main className="bg-white min-h-screen min-w-full flex justify-center items-center">
+    <main className="bg-white min-h-screen flex justify-center items-center">
       {children}
     </main>
   );

@@ -7,7 +7,6 @@ import { UserIcon } from "@heroicons/react/24/solid";
 const UserLabel = ({ user, href }: { user: UserInfo; href?: string }) => {
   return (
     <div className="flex items-center">
-      <p className="pr-5 text-sm font-light tracking-wider">{user.username}</p>
       <Link
         href={`/${href || user.username}`}
         className="flex flex-row items-center"
@@ -28,6 +27,7 @@ const UserLabel = ({ user, href }: { user: UserInfo; href?: string }) => {
           )}
         </div>
       </Link>
+      <p className="pl-3 text-sm font-light tracking-wider">{user.username}</p>
     </div>
   );
 };

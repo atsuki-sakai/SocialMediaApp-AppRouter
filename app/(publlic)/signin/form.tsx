@@ -77,13 +77,11 @@ function Form() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-slate-700 w-[360px] p-5 rounded-lg "
+      className="bg-slate-800 w-[360px] p-5 rounded-lg "
     >
       <div>
-        <h3 className="text-center my-1">ログイン</h3>
-        <div>
-          <hr />
-        </div>
+        <h3 className="text-center mt-3 mb-5">ログイン</h3>
+
         <div className="gap-2 flex flex-col mt-2 text-black">
           <div className="text-xs text-white">
             <label className="block mb-2" htmlFor="username">
@@ -127,7 +125,7 @@ function Form() {
           </div>
         </div>
         <button
-          className="w-full bg-slate-900 my-5 px-2 py-2 rounded-lg text-sm hover:opacity-60 transition-all ease-in-out"
+          className="w-full bg-slate-900 my-8 px-2 py-4 rounded-lg text-sm hover:opacity-60 transition-all ease-in-out"
           type="submit"
           disabled={loading}
         >
