@@ -14,16 +14,44 @@ function Form() {
   const [errors, setErrors] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
 
+  function validateCredentials(username: string, password: string) {
+    const newErrors: string[] = [];
+
+    const maxLength = 30;
+    const minLength = 5;
+
+    if (username.length > maxLength) {
+      newErrors.push(
+        "ユーザー名が短過ぎます。ユーザー名は30文字以内にして下さい。"
+      );
+    }
+    if (username.length < minLength) {
+      newErrors.push("ユーザー名が短過ぎます。5文字以上にして下さい。");
+    }
+
+    if (password.length > maxLength) {
+      newErrors.push("パスワードが短過ぎます。30文字以内にして下さい。");
+    }
+    if (password.length < minLength) {
+      newErrors.push("パスワードが短過ぎます。5文字以上にして下さい。");
+    }
+
+    if (password !== confirmPassword) {
+      const newErrors = [];
+      newErrors.push("パスワードが一致しません。確認して下さい。");
+    }
+    return newErrors;
+  }
+
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
 
     setErrors([]);
-
-    if (password !== confirmPassword) {
-      errors.push("password do not match.");
+    const newErrors = validateCredentials(username!, password!);
+    if (newErrors) {
+      setErrors(newErrors);
       return;
     }
-
     setLoading(true);
 
     try {
@@ -57,7 +85,7 @@ function Form() {
               UserName
             </label>
             <input
-              className="block p-2 text-sm rounded-lg text-black"
+              className="block p-2 text-sm rounded-lg text-black w-full"
               type="text"
               id="username"
               value={username}
@@ -71,7 +99,7 @@ function Form() {
               Password
             </label>
             <input
-              className="block p-2 text-sm rounded-lg text-black"
+              className="block p-2 text-sm rounded-lg text-black w-full"
               type="text"
               id="password"
               value={password}
@@ -85,7 +113,7 @@ function Form() {
               Confirm Password
             </label>
             <input
-              className="block p-2 text-sm rounded-lg text-black"
+              className="block p-2 text-sm rounded-lg text-black w-full"
               type="text"
               id="password"
               value={confirmPassword}
@@ -102,6 +130,13 @@ function Form() {
         >
           Sign Up
         </button>
+        {errors.map((error) => {
+          return (
+            <div key={error} className="text-red-600 text-sm mt-2">
+              {error}
+            </div>
+          );
+        })}
       </div>
     </form>
   );

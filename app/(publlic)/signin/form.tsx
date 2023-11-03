@@ -9,8 +9,40 @@ function Form() {
   const [password, setPassword] = useState<undefined | string>("");
   const [loading, setLoading] = useState(false);
 
+  const [errors, setErrors] = useState<string[]>([]);
+
+  function validationCredentials(username: string, password: string) {
+    const newErrors: string[] = [];
+
+    const maxLength = 30;
+    const minLength = 5;
+
+    if (username.length > maxLength) {
+      newErrors.push(
+        "ユーザー名が短過ぎます。ユーザー名は30文字以内にして下さい。"
+      );
+    }
+    if (username.length < minLength) {
+      newErrors.push("ユーザー名が短過ぎます。5文字以上にして下さい。");
+    }
+
+    if (password.length > maxLength) {
+      newErrors.push("パスワードが短過ぎます。30文字以内にして下さい。");
+    }
+    if (password.length < minLength) {
+      newErrors.push("パスワードが短過ぎます。5文字以上にして下さい。");
+    }
+    return newErrors;
+  }
+
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
+
+    const newErrors = validationCredentials(username!, password!);
+    if (newErrors.length !== 0) {
+      setErrors(newErrors);
+      return;
+    }
     setLoading(true);
 
     try {
@@ -46,7 +78,7 @@ function Form() {
               UserName
             </label>
             <input
-              className="block p-2 text-sm rounded-lg text-black"
+              className="block p-2 text-sm rounded-lg text-black w-full"
               type="text"
               id="username"
               value={username}
@@ -60,7 +92,7 @@ function Form() {
               Password
             </label>
             <input
-              className="block p-2 text-sm rounded-lg text-black"
+              className="block p-2 text-sm rounded-lg text-black w-full"
               type="text"
               id="password"
               value={password}
@@ -77,6 +109,13 @@ function Form() {
         >
           Sign in
         </button>
+        {errors.map((error) => {
+          return (
+            <div key={error} className="text-red-600 text-sm">
+              {error}
+            </div>
+          );
+        })}
       </div>
     </form>
   );
