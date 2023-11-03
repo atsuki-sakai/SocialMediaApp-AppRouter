@@ -44,6 +44,7 @@ function Form() {
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
 
+    setErrors([]);
     const newErrors = validationCredentials(username!, password!);
     if (newErrors.length !== 0) {
       setErrors(newErrors);
