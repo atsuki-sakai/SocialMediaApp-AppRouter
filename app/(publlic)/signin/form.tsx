@@ -54,28 +54,33 @@ function Form() {
       if (res.ok) {
         router.push("/feed");
       } else {
-        alert(
+        newErrors.push(
           "invalid username of password... Recheck the two fields and try again."
         );
+        setErrors(newErrors);
       }
     } catch (e) {
-      alert(`ERROR: ${e}`);
+      newErrors.push(e as string);
+      setErrors(newErrors);
     } finally {
       setLoading(false);
     }
   }
 
   return (
-    <form onSubmit={handleSubmit} className="bg-slate-700 w-fit p-5 rounded-lg">
+    <form
+      onSubmit={handleSubmit}
+      className="bg-slate-700 w-[360px] p-5 rounded-lg"
+    >
       <div>
-        <h3 className="text-center my-1">Sign in</h3>
+        <h3 className="text-center my-1">ログイン</h3>
         <div>
           <hr />
         </div>
         <div className="gap-2 flex flex-col mt-2 text-black">
           <div className="text-xs text-white">
             <label className="block mb-2" htmlFor="username">
-              UserName
+              ユーザー名
             </label>
             <input
               className="block p-2 text-sm rounded-lg text-black w-full"
@@ -89,10 +94,11 @@ function Form() {
           </div>
           <div className="text-xs text-white">
             <label className="block mb-2" htmlFor="password">
-              Password
+              パスワード
             </label>
             <input
               className="block p-2 text-sm rounded-lg text-black w-full"
+              autoComplete="password"
               type="text"
               id="password"
               value={password}
@@ -103,15 +109,15 @@ function Form() {
           </div>
         </div>
         <button
-          className="w-full bg-slate-900 mt-3 px-2 py-1 rounded-lg text-sm hover:opacity-60 transition-all ease-in-out"
+          className="w-full bg-slate-900 my-5 px-2 py-2 rounded-lg text-sm hover:opacity-60 transition-all ease-in-out"
           type="submit"
           disabled={loading}
         >
-          Sign in
+          {loading ? "ログイン中..." : "ログイン"}
         </button>
         {errors.map((error) => {
           return (
-            <div key={error} className="text-red-600 text-sm">
+            <div key={error} className="text-red-600 text-sm mt-2">
               {error}
             </div>
           );

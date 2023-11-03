@@ -12,13 +12,13 @@ export default function Home() {
           className="block bg-slate-500 p-3 rounded-lg hover:bg-slate-400 transition-all ease-in-out"
           href={"/signin"}
         >
-          Sign In
+          ログインする
         </Link>
         <Link
           className="block bg-slate-500 p-3 mt-4 rounded-lg hover:bg-slate-400 transition-all ease-in-out"
           href={"/signup"}
         >
-          Sign Up
+          新規登録
         </Link>
       </div>
     </div>

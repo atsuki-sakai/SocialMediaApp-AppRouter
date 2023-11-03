@@ -10,15 +10,23 @@ function Form() {
   const [confirmPassword, setConfirmPassword] = useState<undefined | string>(
     ""
   );
+  const [showPassword, setShowPassword] = useState(false);
 
   const [errors, setErrors] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
 
-  function validateCredentials(username: string, password: string) {
-    const newErrors: string[] = [];
+  function validateCredentials(
+    username: undefined | string,
+    password: undefined | string
+  ) {
+    const newErrors = [];
 
     const maxLength = 30;
     const minLength = 5;
+    if (!username || !password) {
+      newErrors.push("username or passwordを入力して下さい。");
+      return newErrors;
+    }
 
     if (username.length > maxLength) {
       newErrors.push(
@@ -43,12 +51,17 @@ function Form() {
     return newErrors;
   }
 
+  function toggleShowPassword(e: FormEvent) {
+    e.preventDefault();
+    setShowPassword(!showPassword);
+  }
+
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
 
     setErrors([]);
-    const newErrors = validateCredentials(username!, password!);
-    if (newErrors) {
+    const newErrors = validateCredentials(username, password);
+    if (newErrors.length !== 0) {
       setErrors(newErrors);
       return;
     }
@@ -61,28 +74,37 @@ function Form() {
       });
 
       if (res.ok) {
+        alert("アカウントを作成しました。");
         window.location.href = "/signin";
       } else {
-        alert("sign up failed.");
+        const newError = [];
+        newError.push("sign in failed...");
+        setErrors(newError);
       }
     } catch (e) {
-      alert(`SIGN UP ERROR: ${e}`);
+      const newError = [];
+      newError.push(e as string);
+      setErrors(newErrors);
     } finally {
+      console.log("f");
       setLoading(false);
     }
   }
 
   return (
-    <form onSubmit={handleSubmit} className="bg-slate-700 w-fit p-5 rounded-lg">
+    <form
+      onSubmit={handleSubmit}
+      className="bg-slate-700 w-[360px] p-5 rounded-lg"
+    >
       <div>
-        <h3 className="text-center my-1">Sign Up</h3>
+        <h3 className="text-center my-1">新規登録</h3>
         <div>
           <hr />
         </div>
         <div className="gap-2 flex flex-col mt-2 text-black">
           <div className="text-xs text-white">
             <label className="block mb-2" htmlFor="username">
-              UserName
+              ユーザー名
             </label>
             <input
               className="block p-2 text-sm rounded-lg text-black w-full"
@@ -94,13 +116,21 @@ function Form() {
               required
             />
           </div>
+          <div className="w-full flex justify-end items-center">
+            <button
+              className="text-blue-500 text-xs underline mt-2 hover:opacity-70"
+              onClick={toggleShowPassword}
+            >
+              {showPassword ? "パスワードを非表示する" : "パスワードを表示する"}
+            </button>
+          </div>
           <div className="text-xs text-white">
             <label className="block mb-2" htmlFor="password">
-              Password
+              パスワード
             </label>
             <input
               className="block p-2 text-sm rounded-lg text-black w-full"
-              type="text"
+              type={showPassword ? "text" : "password"}
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -110,25 +140,25 @@ function Form() {
           </div>
           <div className="text-xs text-white">
             <label className="block mb-2" htmlFor="password">
-              Confirm Password
+              確認用パスワ-ド
             </label>
             <input
               className="block p-2 text-sm rounded-lg text-black w-full"
-              type="text"
-              id="password"
+              type={showPassword ? "text" : "password"}
+              id="confirm-password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              placeholder="password"
+              placeholder="confirm password"
               required
             />
           </div>
         </div>
         <button
-          className="w-full bg-slate-900 mt-3 px-2 py-1 rounded-lg text-sm hover:opacity-60 transition-all ease-in-out"
+          className="w-full bg-slate-900 my-5 px-2 py-2 rounded-lg text-sm hover:opacity-60 transition-all ease-in-out"
           type="submit"
           disabled={loading}
         >
-          Sign Up
+          {loading ? "アカウント作成中..." : "登録する"}
         </button>
         {errors.map((error) => {
           return (
