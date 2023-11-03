@@ -1,4 +1,4 @@
-import { getClient } from "@/services/DB/client";
+import { getClient } from "@/service/DB/helpers";
 import bcrypt from "bcrypt";
 
 async function loadAdminUser(username: string, password: string) {

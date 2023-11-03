@@ -1,5 +1,5 @@
 
-import { sql } from "@/services/DB/client";
+import { sql } from "@/service/DB/helpers";
 import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 import { SignJWT } from "jose";

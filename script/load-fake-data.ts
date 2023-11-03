@@ -2,7 +2,7 @@
 import { Client } from "pg";
 import { faker } from "@faker-js/faker";
 import bcrypt from "bcrypt";
-import { getClient } from "@/services/DB/client";
+import { getClient } from "@/service/DB/helpers";
 
 class DataLoader {
 
