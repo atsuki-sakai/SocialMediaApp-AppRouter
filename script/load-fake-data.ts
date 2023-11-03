@@ -41,7 +41,8 @@ class DataLoader {
         const username = faker.internet.userName();
         const avatar = faker.internet.avatar();
         const saltRounds  =10;
-        const hash = await bcrypt.hash("social_media_app", saltRounds);
+        const defautlPassword = "social_media_app";
+        const hash = await bcrypt.hash(defautlPassword, saltRounds);
 
         await this.client.query("insert into public.users (username, password, avatar) values ($1, $2, $3)",
         [username, hash, avatar]
