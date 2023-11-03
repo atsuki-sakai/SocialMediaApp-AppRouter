@@ -108,6 +108,7 @@ function Form() {
             </label>
             <input
               className="block p-2 text-sm rounded-lg text-black w-full"
+              autoComplete="username"
               type="text"
               id="username"
               value={username}
@@ -130,6 +131,7 @@ function Form() {
             </label>
             <input
               className="block p-2 text-sm rounded-lg text-black w-full"
+              autoComplete="new-password"
               type={showPassword ? "text" : "password"}
               id="password"
               value={password}
@@ -144,6 +146,7 @@ function Form() {
             </label>
             <input
               className="block p-2 text-sm rounded-lg text-black w-full"
+              autoComplete="new-password"
               type={showPassword ? "text" : "password"}
               id="confirm-password"
               value={confirmPassword}
@@ -160,13 +163,20 @@ function Form() {
         >
           {loading ? "アカウント作成中..." : "登録する"}
         </button>
-        {errors.map((error) => {
-          return (
-            <div key={error} className="text-red-600 text-sm mt-2">
-              {error}
-            </div>
-          );
-        })}
+        {errors.length !== 0 ? (
+          <div className="bg-white p-3 rounded-lg">
+            {errors.map((error) => {
+              return (
+                <ul
+                  key={error}
+                  className="text-red-600 text-xs mt-2 list-disc pl-4"
+                >
+                  <li>{error}</li>
+                </ul>
+              );
+            })}
+          </div>
+        ) : null}
       </div>
     </form>
   );

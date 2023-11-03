@@ -8,6 +8,7 @@ function Form() {
   const [username, setUsername] = useState<undefined | string>("");
   const [password, setPassword] = useState<undefined | string>("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const [errors, setErrors] = useState<string[]>([]);
 
@@ -33,6 +34,11 @@ function Form() {
       newErrors.push("パスワードが短過ぎます。5文字以上にして下さい。");
     }
     return newErrors;
+  }
+
+  function toggleShowPassword(e: FormEvent) {
+    e.preventDefault();
+    setShowPassword(!showPassword);
   }
 
   async function handleSubmit(e: FormEvent) {
@@ -70,7 +76,7 @@ function Form() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-slate-700 w-[360px] p-5 rounded-lg"
+      className="bg-slate-700 w-[360px] p-5 rounded-lg "
     >
       <div>
         <h3 className="text-center my-1">ログイン</h3>
@@ -84,6 +90,7 @@ function Form() {
             </label>
             <input
               className="block p-2 text-sm rounded-lg text-black w-full"
+              autoComplete="username"
               type="text"
               id="username"
               value={username}
@@ -92,6 +99,16 @@ function Form() {
               required
             />
           </div>
+          <div className="w-full flex justify-end">
+            <button
+              className="text-blue-500 underline text-xs mt-2"
+              onClick={toggleShowPassword}
+            >
+              {showPassword
+                ? "パスワードを非表示にする"
+                : "パスワードを表示にする"}
+            </button>
+          </div>
           <div className="text-xs text-white">
             <label className="block mb-2" htmlFor="password">
               パスワード
@@ -99,7 +116,7 @@ function Form() {
             <input
               className="block p-2 text-sm rounded-lg text-black w-full"
               autoComplete="password"
-              type="text"
+              type={showPassword ? "text" : "password"}
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -115,13 +132,21 @@ function Form() {
         >
           {loading ? "ログイン中..." : "ログイン"}
         </button>
-        {errors.map((error) => {
-          return (
-            <div key={error} className="text-red-600 text-sm mt-2">
-              {error}
-            </div>
-          );
-        })}
+
+        {errors.length !== 0 ? (
+          <div className="bg-white p-3 rounded-lg">
+            {errors.map((error) => {
+              return (
+                <ul
+                  key={error}
+                  className="text-red-600 text-xs mt-2 list-disc pl-4"
+                >
+                  <li>{error}</li>
+                </ul>
+              );
+            })}
+          </div>
+        ) : null}
       </div>
     </form>
   );
