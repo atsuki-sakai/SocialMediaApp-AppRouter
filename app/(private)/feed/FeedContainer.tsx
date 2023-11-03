@@ -11,8 +11,13 @@ const FeedContainer = () => {
   return (
     <div>
       {pages}
-      <div>
-        <button onClick={() => setCount(count + 1)}>Load More</button>
+      <div className="mt-3 w-full flex justify-center">
+        <button
+          className="bg-slate-900 tracking-wider text-white w-full py-3 rounded-md text-sm"
+          onClick={() => setCount(count + 1)}
+        >
+          Load More
+        </button>
       </div>
     </div>
   );

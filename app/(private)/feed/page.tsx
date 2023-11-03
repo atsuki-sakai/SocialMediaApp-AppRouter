@@ -4,7 +4,7 @@ import FeedContainer from "./FeedContainer";
 const Feed = () => {
   return (
     <main className="">
-      <h2>Feed</h2>
+      <h2 className="text-lg font-bold tracking-wider">Feed</h2>
       <FeedContainer />
     </main>
   );

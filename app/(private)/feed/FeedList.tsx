@@ -11,7 +11,17 @@ const FeedList = ({ index, key }: { index: number; key: number }) => {
   );
 
   if (error) return <div>{error}</div>;
-  if (isLoading) return <div>loading...</div>;
+  if (isLoading)
+    return (
+      <div className="p-3 flex justify-between items-start bg-white rounded-md my-5">
+        <div className="h-[46px] w-[58px] rounded-full bg-gray-400" />
+        <div className="w-full px-3">
+          <div className="h-5 bg-gray-200 rounded-md"></div>
+          <div className="h-12 bg-gray-300 mt-2 rounded-md"></div>
+        </div>
+      </div>
+    );
+
 
   return (
     <ul className="my-5">
