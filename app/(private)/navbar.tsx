@@ -10,7 +10,7 @@ const Navbar = () => {
   const navPathArray = ["/feed", "/profile", "/following", "/followers"];
 
   return (
-    <nav className="bg-slate-800 p-3 my-5 rounded-md">
+    <nav className="bg-slate-800 p-3 my-4 rounded-md">
       <ul className="flex justify-around items-center text-xs md:text-sm py-2 w-full">
         {navPathArray.map((path) => (
           <li key={path.replaceAll("/", "")}>
