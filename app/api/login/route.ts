@@ -7,6 +7,14 @@ import { SignJWT } from "jose";
 export async function POST(request: Request) {
 
     const json = await request.json();
+
+    if(json.username === undefined){
+        return NextResponse.json({error: "empty username"});
+    }
+    if(json.password === undefined){
+        return NextResponse.json({error: "empty password."});
+    }
+
     const res = await sql("select id, username, password from users where username ilike $1",[json.username]);
 
     if(res.rowCount === 0) {
@@ -14,7 +22,8 @@ export async function POST(request: Request) {
     }
 
     const user = res.rows[0];
-    const match = await bcrypt.compare(json.password, user.password);
+
+    const match = await bcrypt.compare(json.password, user.password,);
 
     if(!match){
         return NextResponse.json({error: "invalid password..."}, {status: 401});
@@ -33,5 +42,5 @@ export async function POST(request: Request) {
         secure: true
     });
 
-    return response;
+    return NextResponse.json({msg: "login success."});
 }
