@@ -86,7 +86,6 @@ function Form() {
       newError.push(e as string);
       setErrors(newErrors);
     } finally {
-      console.log("f");
       setLoading(false);
     }
   }

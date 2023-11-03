@@ -1,7 +1,16 @@
+import { Header, Footer, Navbar } from ".";
+
 export default function PrivateLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return <main>{children}</main>;
+  return (
+    <>
+      <Header />
+      <Navbar />
+      <main>{children}</main>
+      <Footer />
+    </>
+  );
 }

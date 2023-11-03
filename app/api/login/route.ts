@@ -33,14 +33,22 @@ export async function POST(request: Request) {
         .setProtectedHeader({alg: "HS256"})
         .setSubject(user.id).setIssuedAt()
         .setExpirationTime("2w")
-        .sign(new TextEncoder().encode("my-jwt-sercret"));
+        .sign(new TextEncoder().encode(process.env.JWT_SECRET!));
     const response = NextResponse.json({msg: "login success."});
 
-    response.cookies.set('jwt-token',token, {
-        sameSite: "strict",
-        httpOnly: true,
-        secure: true
-    });
+    if(process.env.POSTGRES_URL){
 
-    return NextResponse.json({msg: "login success."});
+        response.cookies.set('jwt-token',token, {
+            sameSite: "strict",
+            httpOnly: true,
+            secure: true
+        });
+    }else{
+        response.cookies.set('jwt-token',token, {
+            sameSite: "strict",
+        });
+    }
+
+
+    return response;
 }
