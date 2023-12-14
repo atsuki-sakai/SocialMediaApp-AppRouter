@@ -1,12 +1,12 @@
 import { getJWTPayload } from "@/app/utils/auth";
 import { sql } from "@/service/DB/helpers";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const page = (searchParams.get("page") && parseInt(searchParams.get("page")!)) || 0;
     const limit = 10;
-    const offset = page * 10;
+    const offset = page * limit;
     const jwtPayload = await getJWTPayload();
     const res = await sql(`select p.*, u.username, u.avatar from posts
         p inner join users u on p.user_id = u.id where user_id in
@@ -15,5 +15,4 @@ export async function GET(request: Request) {
     );
 
     return NextResponse.json({data: res.rows})
-
 }
