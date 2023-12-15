@@ -32,6 +32,7 @@ const FeedList = ({ index }: { index: number }) => {
   if (error) return <div>{error}</div>;
   if (isLoading) return generateDammyPosts();
 
+  console.log(data);
   return (
     <ul>
       {data.data.map((post: PostInfo) => {
