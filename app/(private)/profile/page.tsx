@@ -15,11 +15,11 @@ const Profile = () => {
   if (isLoading) {
     return <div>Loading...</div>;
   }
-
   return (
     <main>
       <h2>Profile</h2>
       <Form />
+
       <PostContainer username={user.data.username} />
     </main>
   );

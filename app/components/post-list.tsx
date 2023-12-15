@@ -13,7 +13,7 @@ const PostList = ({ index, username }: { index: number; username: string }) => {
   if (error) {
     return <div>Error</div>;
   }
-  if (isLoading) {
+  if (isLoading || !posts) {
     return <div>Loading...</div>;
   }
   return (
