@@ -11,7 +11,7 @@ export default function PrivateLayout({
 }) {
   return (
     <SWRConfig value={{ fetcher: fetcher }}>
-      {/* <Header /> */}
+      <Header />
       <div className="flex flex-col min-h-screen max-w-md m-auto">
         <div className="pt-[50px] px-4 my-4 min-h-screen">
           <Navbar />

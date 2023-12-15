@@ -14,7 +14,7 @@ const UserLabel = ({ user, href }: { user: UserInfo; href: string }) => {
             <div className="w-[32px] h-[32px]">
               <Image
                 className="rounded-full"
-                src={user.avatar ?? ""}
+                src={user.avatar}
                 width={32}
                 height={32}
                 alt={user.username}

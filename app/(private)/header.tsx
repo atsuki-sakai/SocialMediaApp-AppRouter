@@ -6,9 +6,14 @@ import { WaitingLoader, UserLabel } from "@/app/components";
 import { UserIcon } from "@heroicons/react/24/solid";
 
 const Header = () => {
-  const { data: userRes, error: userError } = useSWR("/api/users/profile");
+  const {
+    data: userRes,
+    error: userError,
+    isLoading,
+  } = useSWR("/api/users/profile");
 
   if (userError) return <div>failed to {userError}</div>;
+  if (isLoading) return <div>now loading...</div>;
 
   return (
     <header className="h-[60px] w-full p-5 bg-slate-900 fixed top-0 left-0 right-0">
