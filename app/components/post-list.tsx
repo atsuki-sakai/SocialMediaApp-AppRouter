@@ -27,7 +27,7 @@ const PostList = ({ index, username }: { index: number; username: string }) => {
                   className="rounded-full"
                   height={42}
                   width={42}
-                  src={post.avatar}
+                  src={post.avatar ?? ""}
                   alt={post.username}
                 />
               </div>
