@@ -5,6 +5,7 @@ import type { UserInfo } from "../../types";
 import { UserIcon } from "@heroicons/react/24/solid";
 
 const UserLabel = ({ user, href }: { user: UserInfo; href: string }) => {
+  console.log("user: ", user);
   return (
     <div className="flex items-center">
       <Link href={`/${href}`} className="flex flex-row items-center">
