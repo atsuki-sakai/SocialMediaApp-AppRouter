@@ -12,13 +12,13 @@ const UserLabel = ({ user, href }: { user: UserInfo; href: string }) => {
         <div>
           {user.avatar ? (
             <div className="w-[32px] h-[32px]">
-              {/* <Image
+              <Image
                 className="rounded-full"
                 src={user.avatar ?? ""}
                 width={32}
                 height={32}
                 alt={user.username}
-              /> */}
+              />
             </div>
           ) : (
             <div className="bg-gray-500 p-2 rounded-full w-[32px] h-[32px] flex justify-center items-center">
