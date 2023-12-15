@@ -8,11 +8,11 @@ import { UserIcon } from "@heroicons/react/20/solid";
 const FollowerList = ({ index }: { index: number }) => {
   const { data: userData } = useSWR("/api/users/profile");
 
-  const { data: followers } = useSWR(
+  const { data: followers, isLoading } = useSWR(
     () => "/api/users/" + userData.data.id + "/followers?page=" + index
   );
 
-  if (!followers) {
+  if (!followers || isLoading) {
     return <div>now loading...</div>;
   }
   return (
