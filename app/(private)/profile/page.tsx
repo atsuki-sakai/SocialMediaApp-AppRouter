@@ -16,9 +16,6 @@ const Profile = () => {
     return <div>Loading...</div>;
   }
 
-  if (user) {
-    console.log(user);
-  }
   return (
     <main>
       <h2>Profile</h2>

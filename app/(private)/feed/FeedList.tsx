@@ -4,7 +4,7 @@ import React from "react";
 import Image from "next/image";
 import useSWR from "swr";
 
-const FeedList = ({ index, key }: { index: number; key: number }) => {
+const FeedList = ({ index }: { index: number }) => {
   const { data, error, isLoading } = useSWR(
     "/api/posts/feed?page=" + index,
     fetcher
@@ -14,7 +14,10 @@ const FeedList = ({ index, key }: { index: number; key: number }) => {
     const posts = [];
     for (let i = 0; i < 6; i++) {
       posts.push(
-        <div className="p-3 flex justify-between items-start bg-white rounded-md my-5">
+        <div
+          key={`dammy-post-${i}`}
+          className="p-3 flex justify-between items-start bg-white rounded-md my-5"
+        >
           <div className="h-[46px] w-[54px] rounded-full bg-gray-400" />
           <div className="w-full px-3">
             <div className="h-4 bg-gray-200 rounded-md w-[80px]"></div>
@@ -30,12 +33,12 @@ const FeedList = ({ index, key }: { index: number; key: number }) => {
   if (isLoading) return generateDammyPosts();
 
   return (
-    <ul className="my-5">
-      {data.data.map((post: PostInfo, index: number) => {
+    <ul>
+      {data.data.map((post: PostInfo) => {
         return (
           <li
-            key={`${index}-${post.id}`}
-            className="p-3 bg-white text-black rounded-md mb-3 flex gap-2"
+            key={post.id}
+            className="p-3 bg-white text-black rounded-md mb-3 flex gap-2 w-full"
           >
             <Image
               src={post.avatar}
@@ -45,11 +48,14 @@ const FeedList = ({ index, key }: { index: number; key: number }) => {
               className="h-[54px] w-[54px] rounded-full"
             />
 
-            <div>
-              <span className="block text-xs tracking-wider text-gray-500">
-                {post.updated_at.split("T")[0]}
-              </span>
-              <p className="text-sm text-gray-800 tracking-wide">
+            <div className="w-full">
+              <div className="flex items-center justify-between">
+                <p className="text-sm tracking-wide">{post.username}</p>
+                <span className="block text-xs tracking-wider text-gray-500">
+                  {post.updated_at.split("T")[0]}
+                </span>
+              </div>
+              <p className="text-xs text-gray-600 tracking-wide">
                 {post.content}
               </p>
             </div>

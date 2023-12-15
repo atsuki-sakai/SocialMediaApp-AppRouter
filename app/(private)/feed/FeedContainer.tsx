@@ -6,7 +6,7 @@ const FeedContainer = () => {
   const [count, setCount] = useState(1);
   const pages = [];
   for (let i = 0; i < count; i++) {
-    pages.push(<FeedList index={i} key={i} />);
+    pages.push(<FeedList key={`feed-list-${i}`} index={i} />);
   }
   return (
     <div>

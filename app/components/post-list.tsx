@@ -18,9 +18,9 @@ const PostList = ({ index, username }: { index: number; username: string }) => {
   }
   return (
     <ul className="mt-3">
-      {posts.data.map((post: PostInfo) => {
+      {posts.data.map((post: PostInfo, index: number) => {
         return (
-          <li key={post.id} className="flex bg-white mb-3 p-2 rounded-sm">
+          <li key={index} className="flex bg-white mb-3 p-2 rounded-sm">
             {post.avatar ? (
               <div>
                 <Image
