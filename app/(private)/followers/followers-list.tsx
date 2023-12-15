@@ -20,7 +20,7 @@ const FollowerList = ({ index }: { index: number }) => {
       {followers.data.map((follower: UserInfo) => {
         return (
           <li key={follower.id} className="flex items-center p-2">
-            {follower.avatar ? (
+            {follower.avatar && (
               <Image
                 className="w-[32px] h-[32px] rounded-full"
                 width={32}
@@ -28,10 +28,6 @@ const FollowerList = ({ index }: { index: number }) => {
                 src={follower.avatar}
                 alt={follower.username}
               />
-            ) : (
-              <div className="bg-gray-500 p-2 rounded-full w-[32px] h-[32px] flex justify-center items-center">
-                <UserIcon width={20} height={20} />
-              </div>
             )}
 
             <p className=" text-white text-xs tracking-wide pl-3">

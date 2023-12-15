@@ -21,7 +21,7 @@ const PostList = ({ index, username }: { index: number; username: string }) => {
       {posts.data.map((post: PostInfo, index: number) => {
         return (
           <li key={post.id} className="flex bg-white mb-3 p-2 rounded-sm">
-            {post.avatar ? (
+            {post.avatar && (
               <div>
                 <Image
                   className="rounded-full"
@@ -31,8 +31,6 @@ const PostList = ({ index, username }: { index: number; username: string }) => {
                   alt={post.username}
                 />
               </div>
-            ) : (
-              <div className="h-[32px] w-[32px] rounded-full bg-gray-600"></div>
             )}
             <div className="w-full h-auto ml-2">
               <div className="flex justify-between items-center text-black">

@@ -40,18 +40,14 @@ const FeedList = ({ index }: { index: number }) => {
             key={post.id}
             className="p-3 bg-white text-black rounded-md mb-3 flex gap-2 w-full"
           >
-            {post.avatar ? (
+            {post.avatar && (
               <Image
-                src={post.avatar ?? ""}
+                src={post.avatar}
                 width={54}
                 height={54}
                 alt={post.username}
                 className="h-[54px] w-[54px] rounded-full"
               />
-            ) : (
-              <div className="bg-gray-500 p-2 rounded-full w-[32px] h-[32px] flex justify-center items-center">
-                <UserIcon width={20} height={20} />
-              </div>
             )}
 
             <div className="w-full">
