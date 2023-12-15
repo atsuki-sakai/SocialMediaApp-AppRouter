@@ -27,7 +27,8 @@ const Header = () => {
             <WaitingLoader />
           </div>
         ) : (
-          <UserLabel user={userRes.data} href="/account" />
+          // <UserLabel user={userRes.data} href="/account" />
+          <div>label</div>
         )}
       </div>
     </header>

@@ -4,13 +4,10 @@ import Link from "next/link";
 import type { UserInfo } from "../../types";
 import { UserIcon } from "@heroicons/react/24/solid";
 
-const UserLabel = ({ user, href }: { user: UserInfo; href?: string }) => {
+const UserLabel = ({ user, href }: { user: UserInfo; href: string }) => {
   return (
     <div className="flex items-center">
-      <Link
-        href={`/${href || user.username}`}
-        className="flex flex-row items-center"
-      >
+      <Link href={`/${href}`} className="flex flex-row items-center">
         <div>
           {user.avatar ? (
             <div className="w-[32px] h-[32px]">
