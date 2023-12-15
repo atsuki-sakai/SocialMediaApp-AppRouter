@@ -6,11 +6,7 @@ import { WaitingLoader, UserLabel } from "@/app/components";
 import { UserIcon } from "@heroicons/react/24/solid";
 
 const Header = () => {
-  const {
-    data: userRes,
-    error: userError,
-    isLoading: userFetching,
-  } = useSWR("/api/users/profile");
+  const { data: userRes, error: userError } = useSWR("/api/users/profile");
 
   if (userError) return <div>failed to {userError}</div>;
 
@@ -19,16 +15,15 @@ const Header = () => {
       <div className="flex flex-row justify-between items-center max-w-md mx-auto">
         <h1 className=" blockfont-mono">Social Media App</h1>
 
-        {userFetching ? (
+        {userRes ? (
+          <UserLabel user={userRes.data} href="/" />
+        ) : (
           <div className="flex items-center">
             <div className="bg-gray-500 p-2 rounded-full w-[32px] h-[32px] flex justify-center items-center mr-4">
               <UserIcon width={20} height={20} />
             </div>
             <WaitingLoader />
           </div>
-        ) : (
-          // <UserLabel user={userRes.data} href="/" />
-          <div>user label</div>
         )}
       </div>
     </header>
