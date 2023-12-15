@@ -20,14 +20,14 @@ const PostList = ({ index, username }: { index: number; username: string }) => {
     <ul className="mt-3">
       {posts.data.map((post: PostInfo, index: number) => {
         return (
-          <li key={index} className="flex bg-white mb-3 p-2 rounded-sm">
+          <li key={post.id} className="flex bg-white mb-3 p-2 rounded-sm">
             {post.avatar ? (
               <div>
                 <Image
                   className="rounded-full"
                   height={42}
                   width={42}
-                  src={post.avatar ?? ""}
+                  src={post.avatar}
                   alt={post.username}
                 />
               </div>

@@ -26,7 +26,7 @@ function FollowingList({ index }: { index: number }) {
                 className="w-[32px] h-[32px] rounded-full"
                 width={32}
                 height={32}
-                src={follower.avatar ?? ""}
+                src={follower.avatar}
                 alt={follower.username}
               />
             ) : (

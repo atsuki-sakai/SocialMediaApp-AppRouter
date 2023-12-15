@@ -7,7 +7,9 @@ function PostContainer({ username }: { username: string }) {
   const pages = [];
 
   for (let i = 0; i < cnt; i++) {
-    pages.push(<PostList index={i} username={username} key={i} />);
+    pages.push(
+      <PostList index={i} username={username} key={`post-lisit-${i}`} />
+    );
   }
 
   return (
