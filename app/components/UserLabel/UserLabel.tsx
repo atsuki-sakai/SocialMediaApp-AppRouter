@@ -10,11 +10,11 @@ const UserLabel = ({ user, href }: { user: UserInfo; href: string }) => {
     <div className="flex items-center">
       <Link href={`/${href}`} className="flex flex-row items-center">
         <div>
-          {user.avatar !== null && user.avatar !== "" ? (
+          {user.avatar ? (
             <div className="w-[32px] h-[32px]">
               <Image
                 className="rounded-full"
-                src={user.avatar}
+                src={user.avatar ?? ""}
                 width={32}
                 height={32}
                 alt={user.username}

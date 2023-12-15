@@ -42,7 +42,7 @@ const FeedList = ({ index }: { index: number }) => {
           >
             {post.avatar ? (
               <Image
-                src={post.avatar}
+                src={post.avatar ?? ""}
                 width={54}
                 height={54}
                 alt={post.username}
