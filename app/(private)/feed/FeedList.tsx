@@ -3,6 +3,7 @@ import fetcher from "@/app/utils/fetcher";
 import React from "react";
 import Image from "next/image";
 import useSWR from "swr";
+import { UserIcon } from "@heroicons/react/20/solid";
 
 const FeedList = ({ index }: { index: number }) => {
   const { data, error, isLoading } = useSWR(
@@ -31,8 +32,6 @@ const FeedList = ({ index }: { index: number }) => {
 
   if (error) return <div>{error}</div>;
   if (isLoading) return generateDammyPosts();
-
-  console.log(data);
   return (
     <ul>
       {data.data.map((post: PostInfo) => {
@@ -41,13 +40,19 @@ const FeedList = ({ index }: { index: number }) => {
             key={post.id}
             className="p-3 bg-white text-black rounded-md mb-3 flex gap-2 w-full"
           >
-            <Image
-              src={post.avatar}
-              width={54}
-              height={54}
-              alt={post.username}
-              className="h-[54px] w-[54px] rounded-full"
-            />
+            {post.avatar ? (
+              <Image
+                src={post.avatar}
+                width={54}
+                height={54}
+                alt={post.username}
+                className="h-[54px] w-[54px] rounded-full"
+              />
+            ) : (
+              <div className="bg-gray-500 p-2 rounded-full w-[32px] h-[32px] flex justify-center items-center">
+                <UserIcon width={20} height={20} />
+              </div>
+            )}
 
             <div className="w-full">
               <div className="flex items-center justify-between">
