@@ -20,7 +20,7 @@ const Header = () => {
       <div className="flex flex-row justify-between items-center max-w-md mx-auto">
         <h1 className=" blockfont-mono">Social Media App</h1>
 
-        {userRes ? (
+        {userRes.data ? (
           <UserLabel user={userRes.data} href="/" />
         ) : (
           <div className="flex items-center">
