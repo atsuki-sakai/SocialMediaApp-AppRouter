@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import useSWR from "swr";
 import { PostInfo } from "../types";
+import { WaitingLoader } from ".";
 
 const PostList = ({ index, username }: { index: number; username: string }) => {
   const {
@@ -14,7 +15,11 @@ const PostList = ({ index, username }: { index: number; username: string }) => {
     return <div>Error</div>;
   }
   if (isLoading || !posts) {
-    return <div>Loading...</div>;
+    return (
+      <div className="my-3">
+        <WaitingLoader />
+      </div>
+    );
   }
   return (
     <ul className="mt-3">

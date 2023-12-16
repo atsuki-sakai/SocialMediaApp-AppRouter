@@ -3,7 +3,6 @@ import fetcher from "@/app/utils/fetcher";
 import React from "react";
 import Image from "next/image";
 import useSWR from "swr";
-import { UserIcon } from "@heroicons/react/20/solid";
 
 const FeedList = ({ index }: { index: number }) => {
   const { data, error, isLoading } = useSWR(

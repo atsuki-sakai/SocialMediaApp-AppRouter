@@ -18,7 +18,7 @@ export async function POST(request: Request) {
 
     const res = await sql('select id, username from users where username ilike $1', [username]);
 
-    if(res.rowCount > 0 ){
+    if(!res.rowCount || res.rowCount > 0){
         return NextResponse.json({error: "user already exists."});
     }
 

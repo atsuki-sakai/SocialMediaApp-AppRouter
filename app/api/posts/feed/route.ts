@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const page = (searchParams.get("page") && parseInt(searchParams.get("page")!)) || 0;
-    const limit = 10;
+    const limit = 5;
     const offset = page * limit;
     const jwtPayload = await getJWTPayload();
     const res = await sql(`select p.*, u.username, u.avatar from posts

@@ -1,12 +1,12 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import type { UserInfo } from "../../types";
+import type { UserInfo } from "../types";
 
 const UserLabel = ({ user, href }: { user: UserInfo; href: string }) => {
   return (
     <div className="flex items-center">
-      <Link href={`/${href}`} className="flex flex-row items-center">
+      <Link href={href} className="flex flex-row items-center">
         <div>
           {user.avatar && (
             <div className="w-[32px] h-[32px]">

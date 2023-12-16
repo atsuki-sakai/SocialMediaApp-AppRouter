@@ -3,7 +3,8 @@ import useSWR from "swr";
 import Image from "next/image";
 
 import type { UserInfo } from "@/app/types";
-import { UserIcon } from "@heroicons/react/20/solid";
+import WatingLoader from "@/app/components/WaitingLoader/Waitingloader";
+import { WaitingLoader } from "@/app/components";
 
 function FollowingList({ index }: { index: number }) {
   const { data: userData } = useSWR("/api/users/profile");
@@ -13,7 +14,11 @@ function FollowingList({ index }: { index: number }) {
   );
 
   if (!followerData) {
-    return <div>now loading...</div>;
+    return (
+      <div className="mt-5 mb-3">
+        <WaitingLoader />
+      </div>
+    );
   }
 
   return (

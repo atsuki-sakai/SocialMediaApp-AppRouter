@@ -11,9 +11,12 @@ export async function GET(request: Request) {
             [jwtPayload.sub]
         );
         const user = res.rows[0];
+        if(!user){
+            return NextResponse.json({msg: "user not defined..."}, {status: 409})
+        }
         return NextResponse.json({data: user});
     }catch(e){
-        return NextResponse.json({meg: "cookie not defined..."})
+        return NextResponse.json({meg: "cookie not defined..."});
     }
 
 }

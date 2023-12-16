@@ -3,7 +3,7 @@ import useSWR from "swr";
 
 import React from "react";
 import Form from "./form";
-import { PostContainer } from "@/app/components";
+import { PostContainer, WaitingLoader } from "@/app/components";
 
 const Profile = () => {
   const { data: user, error, isLoading } = useSWR("/api/users/profile");
@@ -13,7 +13,11 @@ const Profile = () => {
   }
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="mt-5 mb-3">
+        <WaitingLoader />
+      </div>
+    );
   }
   return (
     <main>
