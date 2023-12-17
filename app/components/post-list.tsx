@@ -16,7 +16,7 @@ const PostList = ({ index, username }: { index: number; username: string }) => {
   }
   if (isLoading || !posts) {
     return (
-      <div className="my-3">
+      <div className="py-5 flex justify-center items-center">
         <WaitingLoader />
       </div>
     );

@@ -10,7 +10,7 @@ const FollowersContainer = () => {
     page.push(<FollowerList key={`folower-list-${i}`} index={i} />);
   }
   return (
-    <div>
+    <div className="my-3">
       {page}
       <div>
         <button onClick={() => setCnt(cnt + 1)}>load more</button>

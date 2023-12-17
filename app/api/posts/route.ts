@@ -11,13 +11,20 @@ export async function GET(request: Request) {
     const offset = page * limit;
     const statement = `select p.*, u.avatar, u.username from posts p inner join users u on p.user_id = u.id where user_id = $1 order by created_at desc limit $2 offset $3`;
 
+    // パラメーターにusernameを渡した場合は、そのユーザーの投稿を取得する。
     if(username) {
-        // TODO:
+        const userRes = await sql('select * from users where username = $1', [username]);
+        if(userRes && userRes.rowCount == 0){
+            return NextResponse.json({error: "user is not found."}, {status: 404});
+        }
+        const user = userRes.rows[0];
+        const postRes = await sql(statement, [user.id, limit, offset]);
+        return NextResponse.json({data: postRes.rows}, {status: 200});
     }
 
     const res = await sql(statement, [jwtPayload.sub, limit, offset]);
 
-    return NextResponse.json({data: res.rows});
+    return NextResponse.json({data: res.rows}, {status: 200});
 
 }
 

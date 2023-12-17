@@ -1,6 +1,7 @@
 import React from "react";
 import useSWR from "swr";
 import Image from "next/image";
+import Link from "next/link";
 
 import type { UserInfo } from "@/app/types";
 import { WaitingLoader } from "@/app/components";
@@ -23,21 +24,23 @@ const FollowerList = ({ index }: { index: number }) => {
     <ul>
       {followers.data.map((follower: UserInfo) => {
         return (
-          <li key={follower.id} className="flex items-center p-2">
-            {follower.avatar && (
-              <Image
-                className="w-[32px] h-[32px] rounded-full"
-                width={32}
-                height={32}
-                src={follower.avatar}
-                alt={follower.username}
-              />
-            )}
+          <Link key={follower.id} href={`/${follower.username}`}>
+            <li className="flex items-center p-2">
+              {follower.avatar && (
+                <Image
+                  className="w-[32px] h-[32px] rounded-full"
+                  width={32}
+                  height={32}
+                  src={follower.avatar}
+                  alt={follower.username}
+                />
+              )}
 
-            <p className=" text-white text-xs tracking-wide pl-3">
-              {follower.username}
-            </p>
-          </li>
+              <p className=" text-white text-xs tracking-wide pl-3">
+                {follower.username}
+              </p>
+            </li>
+          </Link>
         );
       })}
     </ul>

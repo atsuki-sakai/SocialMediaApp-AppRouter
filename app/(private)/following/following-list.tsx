@@ -5,6 +5,7 @@ import Image from "next/image";
 import type { UserInfo } from "@/app/types";
 import WatingLoader from "@/app/components/WaitingLoader/Waitingloader";
 import { WaitingLoader } from "@/app/components";
+import Link from "next/link";
 
 function FollowingList({ index }: { index: number }) {
   const { data: userData } = useSWR("/api/users/profile");
@@ -25,21 +26,23 @@ function FollowingList({ index }: { index: number }) {
     <ul className="my-3 rounded-sm">
       {followerData.data.map((follower: UserInfo) => {
         return (
-          <li key={follower.id} className="flex items-center p-2">
-            {follower.avatar && (
-              <Image
-                className="w-[32px] h-[32px] rounded-full"
-                width={32}
-                height={32}
-                src={follower.avatar}
-                alt={follower.username}
-              />
-            )}
+          <Link key={follower.id} href={follower.username}>
+            <li className="flex items-center p-2">
+              {follower.avatar && (
+                <Image
+                  className="w-[32px] h-[32px] rounded-full"
+                  width={32}
+                  height={32}
+                  src={follower.avatar}
+                  alt={follower.username}
+                />
+              )}
 
-            <p className=" text-white text-xs tracking-wide pl-3">
-              {follower.username}
-            </p>
-          </li>
+              <p className=" text-white text-xs tracking-wide pl-3">
+                {follower.username}
+              </p>
+            </li>
+          </Link>
         );
       })}
     </ul>

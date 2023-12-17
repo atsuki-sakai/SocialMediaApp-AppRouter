@@ -1,8 +1,10 @@
+import { notFound } from "next/navigation";
 import React, { useState } from "react";
 import useSWR, { mutate } from "swr";
 
 const UserPageHeader = ({ username }: { username: string }) => {
   const [disabled, setDisabled] = useState(false);
+  const { data: loginUser } = useSWR("/api/users/profile");
   const {
     data: userData,
     error: userError,
@@ -15,10 +17,14 @@ const UserPageHeader = ({ username }: { username: string }) => {
   } = useSWR(() => "/api/follows?user_id=" + userData.data[0].id);
 
   if (followError || userError) return <div>Error</div>;
-  if (isLoadingFollow || isLoadingUser) return <div>Loading...</div>;
+  if (isLoadingFollow || isLoadingUser)
+    return <div className="w-2/3 h-[28px] my-2 mb-5 bg-gray-500 rounded-sm" />;
+
+  if (userData.data.length == 0) {
+    notFound();
+  }
 
   const user = userData.data[0];
-
   async function handleFollow(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
     setDisabled(true);
@@ -33,7 +39,6 @@ const UserPageHeader = ({ username }: { username: string }) => {
 
     if (res.ok) {
       mutate("/api/follows?user_id=" + user.id);
-      alert("follow");
     }
     setDisabled(false);
   }
@@ -51,23 +56,34 @@ const UserPageHeader = ({ username }: { username: string }) => {
 
     if (res.ok) {
       mutate("/api/follows?user_id=" + user.id);
-      alert("unfollow");
     }
     setDisabled(false);
   }
 
   return (
     <header>
-      <div>
-        <h1>{username}</h1>
-        {followData.data.length == 0 ? (
-          <button onClick={handleFollow} disabled={disabled}>
-            Follow
-          </button>
-        ) : (
-          <button onClick={handleDeleteFolllow} disabled={disabled}>
-            UnFollow
-          </button>
+      <div className="flex items-center justify-between h-12">
+        <p className="text-sm tracking-wide">{username}</p>
+        {loginUser.data.username != username && (
+          <div>
+            {followData.data.length == 0 ? (
+              <button
+                className="bg-white text-slate-800 text-sm px-3 py-1 rounded-sm tracking-wide"
+                onClick={handleFollow}
+                disabled={disabled}
+              >
+                Follow
+              </button>
+            ) : (
+              <button
+                className="bg-slate-900 text-sm px-3 py-1 rounded-sm tracking-wide"
+                onClick={handleDeleteFolllow}
+                disabled={disabled}
+              >
+                UnFollow
+              </button>
+            )}
+          </div>
         )}
       </div>
     </header>

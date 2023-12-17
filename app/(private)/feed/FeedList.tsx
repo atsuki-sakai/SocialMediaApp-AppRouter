@@ -3,6 +3,7 @@ import fetcher from "@/app/utils/fetcher";
 import React from "react";
 import Image from "next/image";
 import useSWR from "swr";
+import Link from "next/link";
 
 const FeedList = ({ index }: { index: number }) => {
   const { data, error, isLoading } = useSWR(
@@ -35,32 +36,31 @@ const FeedList = ({ index }: { index: number }) => {
     <ul>
       {data.data.map((post: PostInfo) => {
         return (
-          <li
-            key={post.id}
-            className="p-3 bg-white text-black rounded-md mb-3 flex gap-2 w-full"
-          >
-            {post.avatar && (
-              <Image
-                src={post.avatar}
-                width={54}
-                height={54}
-                alt={post.username}
-                className="h-[54px] w-[54px] rounded-full"
-              />
-            )}
+          <Link key={post.id} href={`/${post.username}`}>
+            <li className="p-3 bg-white text-black rounded-md mb-3 gap-2 w-full flex">
+              {post.avatar && (
+                <Image
+                  src={post.avatar}
+                  width={54}
+                  height={54}
+                  alt={post.username}
+                  className="h-[54px] w-[54px] rounded-full"
+                />
+              )}
 
-            <div className="w-full">
-              <div className="flex items-center justify-between">
-                <p className="text-sm tracking-wide">{post.username}</p>
-                <span className="block text-xs tracking-wider text-gray-500">
-                  {post.updated_at.split("T")[0]}
-                </span>
+              <div className="w-full">
+                <div className="flex items-center justify-between">
+                  <p className="text-sm tracking-wide">{post.username}</p>
+                  <span className="block text-xs tracking-wider text-gray-500">
+                    {post.updated_at.split("T")[0]}
+                  </span>
+                </div>
+                <p className="text-xs text-gray-600 tracking-wide">
+                  {post.content}
+                </p>
               </div>
-              <p className="text-xs text-gray-600 tracking-wide">
-                {post.content}
-              </p>
-            </div>
-          </li>
+            </li>
+          </Link>
         );
       })}
     </ul>

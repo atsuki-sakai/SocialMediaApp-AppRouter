@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "jose": "^5.0.1",
+    "lodash": "^4.17.21",
     "next": "^14.0.0",
     "pg": "^8.11.3",
     "react": "^18",
@@ -21,6 +22,7 @@
   "devDependencies": {
     "@faker-js/faker": "^8.2.0",
     "@types/bcrypt": "^5.0.1",
+    "@types/lodash": "^4.14.202",
     "@types/node": "^20",
     "@types/pg": "^8.10.7",
     "@types/react": "^18",
