@@ -1,10 +1,16 @@
 import React from "react";
 import style from "./WaitingLoader.module.scss";
 
-const WatingLoader = ({ size }: { size?: number }) => {
+const WatingLoader = ({
+  className,
+  size,
+}: {
+  className?: string;
+  size?: number;
+}) => {
   const _size = size || 8;
   return (
-    <>
+    <div className={className && className}>
       <div className={style.loader}>
         <div
           className={style.ball}
@@ -19,7 +25,7 @@ const WatingLoader = ({ size }: { size?: number }) => {
           style={{ height: `${_size}px`, width: `${_size}px` }}
         />
       </div>
-    </>
+    </div>
   );
 };
 

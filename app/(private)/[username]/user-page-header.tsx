@@ -1,3 +1,4 @@
+import { WaitingLoader } from "@/app/components";
 import { notFound } from "next/navigation";
 import React, { useState } from "react";
 import useSWR, { mutate } from "swr";
@@ -28,7 +29,6 @@ const UserPageHeader = ({ username }: { username: string }) => {
   async function handleFollow(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
     setDisabled(true);
-
     const res = await fetch("/api/follows", {
       method: "POST",
       headers: {

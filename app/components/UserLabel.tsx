@@ -21,7 +21,9 @@ const UserLabel = ({ user, href }: { user: UserInfo; href: string }) => {
           )}
         </div>
       </Link>
-      <p className="pl-3 text-sm font-light tracking-wider">{user.username}</p>
+      <p className="pl-3 text-sm font-light tracking-wider">
+        {user.username && "no name"}
+      </p>
     </div>
   );
 };
