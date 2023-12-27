@@ -38,7 +38,7 @@ export async function middleware(request: NextRequest) {
             await jwtVerify(cookie.value, secret);
         }catch(error: any) {
             console.error(error);
-            return NextResponse.json({error: new MiddlewareError(error ? error : "unauthenticated")}, {status: 500});
+            return NextResponse.json({error: new MiddlewareError(error.message ? error.message : "unauthenticated")}, {status: 500});
         }
     }
 }
