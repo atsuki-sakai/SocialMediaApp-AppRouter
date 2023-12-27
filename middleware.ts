@@ -33,13 +33,33 @@ export async function middleware(request: NextRequest) {
             return NextResponse.json({error: new MiddlewareError("not found jwt-token.")}, {status: 401});
         }
 
-        try{
-            const secret = new TextEncoder().encode(process.env.JWT_SECRET!);
+        try {
+            // JWTシークレットを確認します。未定義の場合や長さが不足している場合はエラーを投げます。
+            const jwtSecret = process.env.JWT_SECRET;
+            if (!jwtSecret || jwtSecret.length < 32) { // 32は最小推奨長さです
+                throw new MiddlewareError("JWT secret is either undefined or too short.");
+            }
+        
+            // JWTシークレットをエンコードします。
+            const secret = new TextEncoder().encode(jwtSecret);
+        
+            // jwtVerify 関数を使用してトークンを検証します。
             await jwtVerify(cookie.value, secret);
-        }catch(error: any) {
+        
+        } catch (error: any) {
             console.error(error);
-            return NextResponse.json({error: new MiddlewareError(error.message ? error.message : "unauthenticated")}, {status: 500});
+            
+            // エラーメッセージが存在する場合はそのメッセージを、存在しない場合は"unauthenticated"を返します。
+            return NextResponse.json({ error: new MiddlewareError(error.message ? error.message : "unauthenticated") }, { status: 401 }); // ステータスコードを401に設定
         }
+        
+        // try{
+        //     const secret = new TextEncoder().encode(process.env.JWT_SECRET!);
+        //     await jwtVerify(cookie.value, secret);
+        // }catch(error: any) {
+        //     console.error(error);
+        //     return NextResponse.json({error: new MiddlewareError(error.message ? error.message : "unauthenticated")}, {status: 500});
+        // }
     }
 }
 
