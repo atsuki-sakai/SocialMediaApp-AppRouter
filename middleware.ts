@@ -39,10 +39,6 @@ export async function middleware(request: NextRequest) {
             if (!jwtSecret) { // 32は最小推奨長さです
                 throw new MiddlewareError("JWT secret is either undefined.");
             }
-
-            if (jwtSecret.length < 32) { // 32は最小推奨長さです
-                throw new MiddlewareError("JWT secret is too short.");
-            }
         
             // JWTシークレットをエンコードします。
             const secret = new TextEncoder().encode(jwtSecret);
