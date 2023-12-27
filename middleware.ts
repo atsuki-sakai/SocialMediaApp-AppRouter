@@ -36,8 +36,12 @@ export async function middleware(request: NextRequest) {
         try {
             // JWTシークレットを確認します。未定義の場合や長さが不足している場合はエラーを投げます。
             const jwtSecret = process.env.JWT_SECRET;
-            if (!jwtSecret || jwtSecret.length < 32) { // 32は最小推奨長さです
-                throw new MiddlewareError("JWT secret is either undefined or too short.");
+            if (!jwtSecret) { // 32は最小推奨長さです
+                throw new MiddlewareError("JWT secret is either undefined.");
+            }
+
+            if (jwtSecret.length < 32) { // 32は最小推奨長さです
+                throw new MiddlewareError("JWT secret is too short.");
             }
         
             // JWTシークレットをエンコードします。
