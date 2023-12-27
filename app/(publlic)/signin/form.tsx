@@ -54,7 +54,7 @@ function Form() {
 
     try {
       const res = await fetch("/api/login", {
-        method: "post",
+        method: "POST",
         body: JSON.stringify({ username, password }),
       });
 
