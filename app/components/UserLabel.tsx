@@ -4,6 +4,7 @@ import Link from "next/link";
 import type { UserInfo } from "../types";
 
 const UserLabel = ({ user, href }: { user: UserInfo; href: string }) => {
+  console.log(user);
   return (
     <div className="flex items-center">
       <Link href={href} className="flex flex-row items-center">
