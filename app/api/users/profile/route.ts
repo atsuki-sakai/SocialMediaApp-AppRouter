@@ -15,8 +15,8 @@ export async function GET(request: Request) {
             return NextResponse.json({msg: "user not defined..."}, {status: 409})
         }
         return NextResponse.json({data: user});
-    }catch(e){
-        return NextResponse.json({meg: "cookie not defined..."});
+    }catch(e: any){
+        return NextResponse.json({msg: e.message}, {status: 409});
     }
 
 }

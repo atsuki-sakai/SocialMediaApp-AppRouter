@@ -14,11 +14,6 @@ const Header = () => {
   if (userError) return <div>failed to {userError}</div>;
   if (!userRes || isLoading) return <div>loading</div>;
 
-  if (userRes.meg) {
-    console.log(userRes.meg);
-    return;
-  }
-
   console.log("userRes: ", userRes);
 
   return (
