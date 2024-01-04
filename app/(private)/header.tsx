@@ -20,7 +20,7 @@ const Header = () => {
     );
 
   return (
-    <header className="h-[60px] w-full p-5 bg-slate-900 fixed top-0 left-0 right-0">
+    <header className="h-[60px] w-full p-5 bg-slate-900 fixed top-0 left-0 right-0 z-50">
       <div className="flex flex-row justify-between items-center max-w-md mx-auto">
         <h1 className=" blockfont-mono">Social Media App</h1>
         {isLoading || !userRes ? (
