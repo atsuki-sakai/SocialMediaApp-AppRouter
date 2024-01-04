@@ -18,8 +18,19 @@ const UserPageHeader = ({ username }: { username: string }) => {
   } = useSWR(() => "/api/follows?user_id=" + userData.data[0].id);
 
   if (followError || userError) return <div>Error</div>;
-  if (isLoadingFollow || isLoadingUser)
-    return <div className="w-2/3 h-[28px] my-2 mb-5 bg-gray-500 rounded-sm" />;
+  if (isLoadingFollow || isLoadingUser || !userData)
+    return (
+      <div className="flex justify-between items-center h-12">
+        <div className="tracking-wide uppercase">
+          <span className="text-center text-xs tracking-widest">
+            loading now...
+          </span>
+        </div>
+        <div className="bg-white text-slate-800 text-sm px-3 py-1 rounded-sm tracking-wide">
+          Follow
+        </div>
+      </div>
+    );
 
   if (userData.data.length == 0) {
     notFound();

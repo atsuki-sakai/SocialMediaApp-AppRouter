@@ -1,14 +1,25 @@
 import { useState } from "react";
 import PostList from "./post-list";
 
-function PostContainer({ username }: { username: string }) {
+function PostContainer({
+  username,
+  showEditBtn,
+}: {
+  username: string;
+  showEditBtn: boolean;
+}) {
   const [cnt, setCnt] = useState(1);
 
   const pages = [];
 
   for (let i = 0; i < cnt; i++) {
     pages.push(
-      <PostList index={i} username={username} key={`post-lisit-${i}`} />
+      <PostList
+        index={i}
+        username={username}
+        key={`post-lisit-${i}`}
+        showEditBtn={showEditBtn}
+      />
     );
   }
 

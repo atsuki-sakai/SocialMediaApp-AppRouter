@@ -11,10 +11,13 @@ const Header = () => {
     isLoading,
   } = useSWR("/api/users/profile");
 
-  // if (userError) return <div>failed to {userError}</div>;
-  // if (!userRes || isLoading) return <div>loading</div>;
-
-  // console.log("userRes: ", userRes);
+  if (userError)
+    return (
+      <div>
+        Failed to{" "}
+        {userError.message ? userError.message : JSON.stringify(userError)}
+      </div>
+    );
 
   return (
     <header className="h-[60px] w-full p-5 bg-slate-900 fixed top-0 left-0 right-0">
